@@ -1,0 +1,21 @@
+(
+animal
+(
+can purr
+(
+cat
+nil
+nil
+)
+(
+God knows who
+nil
+nil
+)
+)
+(
+bird
+nil
+nil
+)
+)

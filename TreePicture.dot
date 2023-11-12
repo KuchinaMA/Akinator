@@ -1,0 +1,13 @@
+digraph {
+  rankdir = HR;
+  node [shape = Mrecord, color = "#800000", style = filled, fillcolor = "#FFD5D5"];
+  node_0000028b84e41540[label = " animal "]; 
+  node_0000028b84e414c0[label = " can purr "]; 
+  node_0000028b84e41440[label = " cat "]; 
+  node_0000028b84e41480[label = " God knows who "]; 
+  node_0000028b84e41500[label = " bird "]; 
+  node_0000028b84e41540 -> node_0000028b84e414c0 [weight = 1, color = "#800000"];
+  node_0000028b84e414c0 -> node_0000028b84e41440 [weight = 1, color = "#800000"];
+  node_0000028b84e414c0 -> node_0000028b84e41480 [weight = 1, color = "#800000"];
+  node_0000028b84e41540 -> node_0000028b84e41500 [weight = 1, color = "#800000"];
+}
