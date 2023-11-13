@@ -40,12 +40,12 @@ void node_graph_dump(Node* node, FILE* dotfile) {
 void edge_graph_dump(Node* node, FILE* dotfile) {
 
     if (node->left != 0) {
-        fprintf(dotfile, "  node_%p -> node_%p [weight = 1, color = \"#800000\"];\n", node, node->left);
+        fprintf(dotfile, "  node_%p -> node_%p [label = \"yes\", weight = 1, color = \"#800000\"];\n", node, node->left);
         edge_graph_dump(node->left, dotfile);
     }
 
     if (node->right != 0) {
-        fprintf(dotfile, "  node_%p -> node_%p [weight = 1, color = \"#800000\"];\n", node, node->right);
+        fprintf(dotfile, "  node_%p -> node_%p [label = \"no\", weight = 1, color = \"#800000\"];\n", node, node->right);
         edge_graph_dump(node->right, dotfile);
     }
 }

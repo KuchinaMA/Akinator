@@ -1,14 +1,14 @@
 (
 animal
 (
-can purr
+can_purr
 (
 cat
 nil
 nil
 )
 (
-God knows who
+God_knows_who
 nil
 nil
 )

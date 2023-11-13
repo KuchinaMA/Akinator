@@ -9,7 +9,6 @@ Node* node_ctor(char* data, Node* left, Node* right) {
 
     Node* node = (Node*)calloc(1, sizeof(Node));
 
-    //node->data = data;
     strcpy(node->data, data);
     node->left = left;
     node->right = right;
@@ -26,7 +25,6 @@ int node_dtor(Node* node) {
 
     node->left = 0;
     node->right = 0;
-    //node->data = "";
     strcpy(node->data, DATA_POISON);
 
     free(node);
@@ -105,11 +103,12 @@ Node* read_node(FILE* file) {
 
     Node* node = (Node*)calloc(1, sizeof(Node));
 
+    //getline(&data, &MAX_LINE_LEN, file);
     //fgets(data, MAX_LINE_LEN, file);
+
     fscanf(file, "%s", data);
-    printf("%s\n", data);
+    printf("new %s\n", data);
     strcpy(node->data, data);
-    //node->data = data;
 
     fscanf(file, "%s", current);
     if (strcmp("(", current) == 0) {
@@ -154,9 +153,15 @@ Node* read_node(FILE* file) {
 Node* read_data(FILE* file) {
 
     char current[MAX_LINE_LEN] = "";
+    char smth[1] = "";
+
+    //fgets(current, MAX_LINE_LEN, file);
+    //getline(&current, &MAX_LINE_LEN, file);
 
     fscanf(file, "%s", current); //открывающая скобка
     printf("open %s\n", current);
+
+    //fgetc(file); //лишний /n
 
     Node* new_node = read_node(file);
 
