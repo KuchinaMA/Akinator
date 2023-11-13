@@ -10,7 +10,6 @@ int graph_dump(const Tree* tree) {
     FILE* dotfile = fopen("TreePicture.dot", "w");
 
     fprintf(dotfile, "digraph {\n");
-    //fprintf(dotfile, "  charset = \"UTF-8\";\n");
     fprintf(dotfile, "  rankdir = HR;\n");
     fprintf(dotfile, "  node [shape = Mrecord, color = \"#000066\", style = filled, fillcolor = \"#D5EAFF\"];\n");
 

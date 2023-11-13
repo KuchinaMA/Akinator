@@ -1,7 +1,7 @@
 #ifndef TREE_H_INCLUDED
 #define TREE_H_INCLUDED
 
-const size_t MAX_LINE_LEN = 30;
+const size_t MAX_LINE_LEN = 50;
 const char DATA_POISON[] = "";
 
 struct Node {
@@ -27,6 +27,8 @@ void print_node_in(Node* node, FILE* output);
 
 Node* read_node(FILE* file);
 Node* read_data(FILE* file);
+
+int get_data(FILE* file, Node* node);
 
 
 #endif // TREE_H_INCLUDED

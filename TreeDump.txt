@@ -1,19 +1,24 @@
 (
+
 animal
 (
-can_purr
+
+can purr
 (
+
 cat
 nil
 nil
 )
 (
-God_knows_who
+
+God knows who
 nil
 nil
 )
 )
 (
+
 bird
 nil
 nil

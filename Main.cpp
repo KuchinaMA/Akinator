@@ -17,7 +17,7 @@ int main () {
     print_node_pre(tree0->root, output);
     graph_dump(tree0); */
 
-    FILE* input1 = fopen("TestData0.txt", "r");
+    FILE* input1 = fopen("TestData1.txt", "r");
     Node* node2 = read_data(input1);
     Tree* tree2 = tree_ctor(node2, 5);
     print_node_pre(tree2->root, output);

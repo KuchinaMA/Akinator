@@ -98,7 +98,6 @@ int tree_dtor(Tree* tree) {
 
 Node* read_node(FILE* file) {
 
-    char data[MAX_LINE_LEN] = "";
     char current[MAX_LINE_LEN] = "";
 
     Node* node = (Node*)calloc(1, sizeof(Node));
@@ -106,42 +105,49 @@ Node* read_node(FILE* file) {
     //getline(&data, &MAX_LINE_LEN, file);
     //fgets(data, MAX_LINE_LEN, file);
 
-    fscanf(file, "%s", data);
-    printf("new %s\n", data);
-    strcpy(node->data, data);
+    get_data(file, node);
 
-    fscanf(file, "%s", current);
+    //fscanf(file, "%s", data);
+    //printf("new %s\n", data);            //отладка
+    //strcpy(node->data, data);
+
+    int n = fscanf(file, "%s", current);
+    //printf("%d\n", n);
     if (strcmp("(", current) == 0) {
 
-        printf("open %s\n", current);
+        printf("open %s\n", current);    //отладка
         node->left = read_node(file);
     }
 
     else if (strcmp("nil", current) == 0) {
 
-        printf("nils %s\n", current);
+        printf("nils %s\n", current);    //отладка
         node->left = 0;
     }
 
-    else
+    else {
         printf("Syntax error!\n");
+        printf("current %s\n", current);
+    }
 
 
     fscanf(file, "%s", current);
     if (strcmp("(", current) == 0) {
 
-        printf("open %s\n", current);
+        printf("open %s\n", current);    //отладка
         node->right = read_node(file);
     }
 
     else if (strcmp("nil", current) == 0) {
 
-        printf("nil %s\n", current);
+        printf("nil %s\n", current);     //отладка
         node->right = 0;
     }
 
-    else
+    else {
         printf("Syntax error!\n");
+        printf("current %s\n", current);
+    }
 
 
     fscanf(file, "%s", current); //закрывающая скобка
@@ -167,3 +173,83 @@ Node* read_data(FILE* file) {
 
     return new_node;
 }
+
+
+
+
+
+int get_data(FILE* file, Node* node) {
+
+    char data[MAX_LINE_LEN] = "";
+    char symb = '0';
+    int i = 0;
+
+    while ((symb = fgetc(file)) != EOF && symb != '>') {
+        data[i] = symb;
+        i++;
+    }
+    data[i] = '\0';
+    strcpy(node->data, data);
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*NodeAkinator* buildTree(FILE* file)
+{
+    char token[MAX_LEN];
+    int i = 0;
+    fscanf(file, "%s", token);
+    if (strcmp(token, "(") == 0) {
+        char c;
+        token[MAX_LEN];
+        while ((c = fgetc(file)) != EOF && c != '>') {
+            if (c == '<') {
+                i--;
+                continue; // Пропускаем символ '<' в начале строки
+            }
+            if (i < MAX_LEN - 1) {
+                token[i] = c;
+                i++;
+            }
+        }
+        token[i] = '\0';
+        if (strcmp(token, "<null") == 0) {
+            return NULL;
+        }
+        NodeAkinator* newNode = (NodeAkinator*)malloc(sizeof(NodeAkinator));
+        strcpy(newNode->value, token);
+        newNode->left = buildTree(file);
+        newNode->right = buildTree(file);
+        fscanf(file, "%s", token); // Пропускаем закрывающую скобку
+        return newNode;
+    } else {
+        if (strcmp(token, "<null>") == 0) {
+            return NULL;
+        }
+        NodeAkinator* newNode = (NodeAkinator*)malloc(sizeof(NodeAkinator));
+        strcpy(newNode->value, token);
+        newNode->left = NULL;
+        newNode->right = NULL;
+        return newNode;
+    }
+}*/
