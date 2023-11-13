@@ -12,7 +12,7 @@ int graph_dump(const Tree* tree) {
     fprintf(dotfile, "digraph {\n");
     //fprintf(dotfile, "  charset = \"UTF-8\";\n");
     fprintf(dotfile, "  rankdir = HR;\n");
-    fprintf(dotfile, "  node [shape = Mrecord, color = \"#800000\", style = filled, fillcolor = \"#FFD5D5\"];\n");
+    fprintf(dotfile, "  node [shape = Mrecord, color = \"#000066\", style = filled, fillcolor = \"#D5EAFF\"];\n");
 
     node_graph_dump(tree->root, dotfile);
     edge_graph_dump(tree->root, dotfile);
@@ -40,7 +40,7 @@ void node_graph_dump(Node* node, FILE* dotfile) {
 void edge_graph_dump(Node* node, FILE* dotfile) {
 
     if (node->left != 0) {
-        fprintf(dotfile, "  node_%p -> node_%p [label = \"yes\", weight = 1, color = \"#800000\"];\n", node, node->left);
+        fprintf(dotfile, "  node_%p -> node_%p [label = \"yes\", weight = 1, color = \"#006400\"];\n", node, node->left);
         edge_graph_dump(node->left, dotfile);
     }
 

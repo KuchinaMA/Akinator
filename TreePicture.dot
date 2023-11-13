@@ -1,13 +1,13 @@
 digraph {
   rankdir = HR;
-  node [shape = Mrecord, color = "#800000", style = filled, fillcolor = "#FFD5D5"];
-  node_000001c4a8cf6bb0[label = " animal "]; 
-  node_000001c4a8cf6bf0[label = " can_purr "]; 
-  node_000001c4a8cf6c30[label = " cat "]; 
-  node_000001c4a8cf6c70[label = " God_knows_who "]; 
-  node_000001c4a8cf6cb0[label = " bird "]; 
-  node_000001c4a8cf6bb0 -> node_000001c4a8cf6bf0 [label = "yes", weight = 1, color = "#800000"];
-  node_000001c4a8cf6bf0 -> node_000001c4a8cf6c30 [label = "yes", weight = 1, color = "#800000"];
-  node_000001c4a8cf6bf0 -> node_000001c4a8cf6c70 [label = "no", weight = 1, color = "#800000"];
-  node_000001c4a8cf6bb0 -> node_000001c4a8cf6cb0 [label = "no", weight = 1, color = "#800000"];
+  node [shape = Mrecord, color = "#000066", style = filled, fillcolor = "#D5EAFF"];
+  node_000001f7b32e6bb0[label = " animal "]; 
+  node_000001f7b32e6bf0[label = " can_purr "]; 
+  node_000001f7b32e6c30[label = " cat "]; 
+  node_000001f7b32e6c70[label = " God_knows_who "]; 
+  node_000001f7b32e6cb0[label = " bird "]; 
+  node_000001f7b32e6bb0 -> node_000001f7b32e6bf0 [label = "yes", weight = 1, color = "#006400"];
+  node_000001f7b32e6bf0 -> node_000001f7b32e6c30 [label = "yes", weight = 1, color = "#006400"];
+  node_000001f7b32e6bf0 -> node_000001f7b32e6c70 [label = "no", weight = 1, color = "#800000"];
+  node_000001f7b32e6bb0 -> node_000001f7b32e6cb0 [label = "no", weight = 1, color = "#800000"];
 }
