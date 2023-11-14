@@ -7,7 +7,7 @@
 
 int main () {
 
-    FILE* output = fopen("TreeDump.txt", "w");
+    FILE* output = fopen("TreeDump.txt", "r+");
 
     /*Node* node_cat = node_ctor("cat", 0, 0);
     Node* node_none = node_ctor("God knows who", 0, 0);
@@ -19,13 +19,14 @@ int main () {
     print_node_pre(tree0->root, output);
     graph_dump(tree0); */
 
-    FILE* input1 = fopen("TestData1.txt", "r");
+    /*FILE* input1 = fopen("TestData1.txt", "r+");
     Tree* tree2 = read_data(input1);
-    print_node_pre(tree2->root, output);
+    //print_node_pre(tree2->root, output);
     graph_dump(tree2);
-    tree_dtor(tree2);
+    tree_dtor(tree2); */
 
-    fclose(input1);
+    //fclose(input1);
+    choose_mode();
 
     fclose(output);
 

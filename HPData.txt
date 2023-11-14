@@ -1,0 +1,53 @@
+(
+<Student>
+(
+<Ginger>
+(
+<Ron Weasley>
+nil
+nil
+)
+(
+<Has a scar>
+(
+<Harry Potter>
+nil
+nil
+)
+(
+<Hermione Granger>
+nil
+nil
+)
+)
+)
+(
+<Professor>
+(
+<Has a beard>
+(
+<Albus Dumbledore>
+nil
+nil
+)
+(
+<Can turn into a cat>
+(
+<Minerva McGonagall>
+nil
+nil
+)
+(
+<Severus Snape>
+nil
+nil
+)
+)
+)
+(
+<God knows who>
+nil
+nil
+)
+)
+)

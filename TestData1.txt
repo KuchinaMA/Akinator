@@ -3,14 +3,30 @@
 (
 <can purr>
 (
-cat>
+<cat>
 nil
 nil
+)
+(
+<green>
+(
+<lives in a teapot>
+(
+<cockroach>
+nil
+nil
+)
+(
+<frog>
+nil
+nil
+)
 )
 (
 <God knows who>
 nil
 nil
+)
 )
 )
 (

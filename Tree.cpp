@@ -39,7 +39,7 @@ void print_node_pre(Node* node, FILE* output) {
         return;
     }
     fprintf(output, "(\n");
-    fprintf(output, "%s\n", node->data);
+    fprintf(output, "<%s>\n", node->data);
     print_node_pre(node->left, output);
     print_node_pre(node->right, output);
     fprintf(output, ")\n");
@@ -54,7 +54,7 @@ void print_node_post(Node* node, FILE* output) {
     fprintf(output, "(\n");
     print_node_post(node->left, output);
     print_node_post(node->right, output);
-    fprintf(output, "%s\n", node->data);
+    fprintf(output, "<%s>\n", node->data);
     fprintf(output, ")\n");
 }
 
@@ -66,7 +66,7 @@ void print_node_in(Node* node, FILE* output) {
     }
     fprintf(output, "(\n");
     print_node_in(node->left, output);
-    fprintf(output, "%s\n", node->data);
+    fprintf(output, "<%s>\n", node->data);
     print_node_in(node->right, output);
     fprintf(output, ")\n");
 }
@@ -108,13 +108,13 @@ Node* read_node(FILE* file) {
 
     if (strcmp("(", current) == 0) {
 
-        printf("open %s\n", current);    //отладка
+        //printf("open %s\n", current);    //отладка
         node->left = read_node(file);
     }
 
     else if (strcmp("nil", current) == 0) {
 
-        printf("nils %s\n", current);    //отладка
+        //printf("nils %s\n", current);    //отладка
         node->left = 0;
     }
 
@@ -127,13 +127,13 @@ Node* read_node(FILE* file) {
     fscanf(file, "%s", current);
     if (strcmp("(", current) == 0) {
 
-        printf("open %s\n", current);    //отладка
+        //printf("open %s\n", current);    //отладка
         node->right = read_node(file);
     }
 
     else if (strcmp("nil", current) == 0) {
 
-        printf("nil %s\n", current);     //отладка
+        //printf("nil %s\n", current);     //отладка
         node->right = 0;
     }
 
@@ -144,7 +144,7 @@ Node* read_node(FILE* file) {
 
 
     fscanf(file, "%s", current); //закрывающая скобка
-    printf("data: %s\n", node->data);
+    //printf("data: %s\n", node->data);
 
     return node;
 }
@@ -153,12 +153,12 @@ Node* read_node(FILE* file) {
 Tree* read_data(FILE* file) {
 
     int size = count_nodes(file);
-    printf("FINAL %d\n", size);
+    //printf("FINAL %d\n", size);
 
     char current[MAX_LINE_LEN] = "";
 
     fscanf(file, "%s", current); //открывающая скобка
-    printf("open %s\n", current);
+    //printf("open %s\n", current);
 
     Node* new_node = read_node(file);
     Tree* new_tree = tree_ctor(new_node, size);
@@ -198,7 +198,7 @@ int get_line(FILE* file, Node* node) {
     }
     data[i] = '\0';
     strcpy(node->data, data);
-    printf("data %s \n", node->data);
+    //printf("data %s \n", node->data);
     return 0;
 }
 

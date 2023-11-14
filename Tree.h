@@ -1,7 +1,7 @@
 #ifndef TREE_H_INCLUDED
 #define TREE_H_INCLUDED
 
-const size_t MAX_LINE_LEN = 50;
+const size_t MAX_LINE_LEN = 100;
 const char DATA_POISON[] = "";
 
 struct Node {

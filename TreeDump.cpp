@@ -20,7 +20,7 @@ int graph_dump(const Tree* tree) {
 
     fclose(dotfile);
 
-    printf("system_res: %d\n", system("dot TreePicture.dot -T png -o TreePicture.png"));
+    system("dot TreePicture.dot -T png -o TreePicture.png");
 
     return 0;
 }
