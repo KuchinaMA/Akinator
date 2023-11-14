@@ -149,7 +149,11 @@ Node* read_node(FILE* file) {
     return node;
 }
 
-Node* read_data(FILE* file) {
+
+Tree* read_data(FILE* file) {
+
+    int size = count_nodes(file);
+    printf("FINAL %d\n", size);
 
     char current[MAX_LINE_LEN] = "";
 
@@ -157,12 +161,25 @@ Node* read_data(FILE* file) {
     printf("open %s\n", current);
 
     Node* new_node = read_node(file);
+    Tree* new_tree = tree_ctor(new_node, size);
 
-    return new_node;
+    return new_tree;
 }
 
+int count_nodes(FILE* file) {
 
+    int nodes_num = 0;
 
+    char brackets[MAX_LINE_LEN] = "";
+    while (fscanf(file, "%s", brackets) > 0) {
+        if (strcmp(brackets, "(") == 0)
+            nodes_num++;
+    }
+
+    fseek(file, 0, SEEK_SET);
+
+    return nodes_num;
+}
 
 
 int get_line(FILE* file, Node* node) {
@@ -181,6 +198,7 @@ int get_line(FILE* file, Node* node) {
     }
     data[i] = '\0';
     strcpy(node->data, data);
+    printf("data %s \n", node->data);
     return 0;
 }
 

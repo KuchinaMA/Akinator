@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "Tree.h"
 #include "TreeDump.h"
+#include "AkinatorFuncs.h"
 
 int main () {
 
@@ -18,8 +20,7 @@ int main () {
     graph_dump(tree0); */
 
     FILE* input1 = fopen("TestData1.txt", "r");
-    Node* node2 = read_data(input1);
-    Tree* tree2 = tree_ctor(node2, 5);
+    Tree* tree2 = read_data(input1);
     print_node_pre(tree2->root, output);
     graph_dump(tree2);
     tree_dtor(tree2);

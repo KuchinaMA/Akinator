@@ -1,14 +1,14 @@
 digraph {
   rankdir = HR;
   node [shape = Mrecord, color = "#000066", style = filled, fillcolor = "#D5EAFF"];
-  node_000001d651a86bb0[label = " animal "]; 
-  node_000001d651a86c00[label = " can purr "]; 
-  node_000001d651a86c50[label = " 
+  node_0000027ac5366bb0[label = " animal "]; 
+  node_0000027ac5366c00[label = " can purr "]; 
+  node_0000027ac5366c50[label = " 
 cat "]; 
-  node_000001d651a86ca0[label = " God knows who "]; 
-  node_000001d651a86cf0[label = " bird "]; 
-  node_000001d651a86bb0 -> node_000001d651a86c00 [label = "yes", weight = 1, color = "#006400"];
-  node_000001d651a86c00 -> node_000001d651a86c50 [label = "yes", weight = 1, color = "#006400"];
-  node_000001d651a86c00 -> node_000001d651a86ca0 [label = "no", weight = 1, color = "#800000"];
-  node_000001d651a86bb0 -> node_000001d651a86cf0 [label = "no", weight = 1, color = "#800000"];
+  node_0000027ac5366ca0[label = " God knows who "]; 
+  node_0000027ac5366cf0[label = " bird "]; 
+  node_0000027ac5366bb0 -> node_0000027ac5366c00 [label = "yes", weight = 1, color = "#006400"];
+  node_0000027ac5366c00 -> node_0000027ac5366c50 [label = "yes", weight = 1, color = "#006400"];
+  node_0000027ac5366c00 -> node_0000027ac5366ca0 [label = "no", weight = 1, color = "#800000"];
+  node_0000027ac5366bb0 -> node_0000027ac5366cf0 [label = "no", weight = 1, color = "#800000"];
 }
