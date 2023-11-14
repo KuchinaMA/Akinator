@@ -1,8 +1,6 @@
 (
-
 animal
 (
-
 can purr
 (
 
@@ -11,14 +9,12 @@ nil
 nil
 )
 (
-
 God knows who
 nil
 nil
 )
 )
 (
-
 bird
 nil
 nil

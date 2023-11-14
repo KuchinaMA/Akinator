@@ -102,17 +102,10 @@ Node* read_node(FILE* file) {
 
     Node* node = (Node*)calloc(1, sizeof(Node));
 
-    //getline(&data, &MAX_LINE_LEN, file);
-    //fgets(data, MAX_LINE_LEN, file);
+    get_line(file, node);
 
-    get_data(file, node);
+    fscanf(file, "%s", current);
 
-    //fscanf(file, "%s", data);
-    //printf("new %s\n", data);            //отладка
-    //strcpy(node->data, data);
-
-    int n = fscanf(file, "%s", current);
-    //printf("%d\n", n);
     if (strcmp("(", current) == 0) {
 
         printf("open %s\n", current);    //отладка
@@ -159,15 +152,9 @@ Node* read_node(FILE* file) {
 Node* read_data(FILE* file) {
 
     char current[MAX_LINE_LEN] = "";
-    char smth[1] = "";
-
-    //fgets(current, MAX_LINE_LEN, file);
-    //getline(&current, &MAX_LINE_LEN, file);
 
     fscanf(file, "%s", current); //открывающая скобка
     printf("open %s\n", current);
-
-    //fgetc(file); //лишний /n
 
     Node* new_node = read_node(file);
 
@@ -178,13 +165,17 @@ Node* read_data(FILE* file) {
 
 
 
-int get_data(FILE* file, Node* node) {
+int get_line(FILE* file, Node* node) {
 
     char data[MAX_LINE_LEN] = "";
     char symb = '0';
     int i = 0;
 
     while ((symb = fgetc(file)) != EOF && symb != '>') {
+        if (symb == '<') {
+            i--;
+            continue;
+        }
         data[i] = symb;
         i++;
     }
@@ -194,62 +185,3 @@ int get_data(FILE* file, Node* node) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*NodeAkinator* buildTree(FILE* file)
-{
-    char token[MAX_LEN];
-    int i = 0;
-    fscanf(file, "%s", token);
-    if (strcmp(token, "(") == 0) {
-        char c;
-        token[MAX_LEN];
-        while ((c = fgetc(file)) != EOF && c != '>') {
-            if (c == '<') {
-                i--;
-                continue; // Пропускаем символ '<' в начале строки
-            }
-            if (i < MAX_LEN - 1) {
-                token[i] = c;
-                i++;
-            }
-        }
-        token[i] = '\0';
-        if (strcmp(token, "<null") == 0) {
-            return NULL;
-        }
-        NodeAkinator* newNode = (NodeAkinator*)malloc(sizeof(NodeAkinator));
-        strcpy(newNode->value, token);
-        newNode->left = buildTree(file);
-        newNode->right = buildTree(file);
-        fscanf(file, "%s", token); // Пропускаем закрывающую скобку
-        return newNode;
-    } else {
-        if (strcmp(token, "<null>") == 0) {
-            return NULL;
-        }
-        NodeAkinator* newNode = (NodeAkinator*)malloc(sizeof(NodeAkinator));
-        strcpy(newNode->value, token);
-        newNode->left = NULL;
-        newNode->right = NULL;
-        return newNode;
-    }
-}*/

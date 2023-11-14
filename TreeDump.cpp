@@ -18,9 +18,9 @@ int graph_dump(const Tree* tree) {
 
     fprintf(dotfile, "}");
 
-    system("dot TreePicture.dot -T png -o TreePicture.png");
-
     fclose(dotfile);
+
+    printf("system_res: %d\n", system("dot TreePicture.dot -T png -o TreePicture.png"));
 
     return 0;
 }

@@ -27,8 +27,7 @@ void print_node_in(Node* node, FILE* output);
 
 Node* read_node(FILE* file);
 Node* read_data(FILE* file);
-
-int get_data(FILE* file, Node* node);
+int get_line(FILE* file, Node* node);
 
 
 #endif // TREE_H_INCLUDED

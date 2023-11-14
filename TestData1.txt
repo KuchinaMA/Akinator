@@ -1,20 +1,20 @@
 (
-animal>
+<animal>
 (
-can purr>
+<can purr>
 (
 cat>
 nil
 nil
 )
 (
-God knows who>
+<God knows who>
 nil
 nil
 )
 )
 (
-bird>
+<bird>
 nil
 nil
 )
