@@ -12,7 +12,7 @@ enum Modes {
     DIFF_MODE  = 4,
 };
 
-int choose_mode();
+int choose_mode(char* filename);
 
 int guess_character(Node* node);
 int add_new_character(Node* node);

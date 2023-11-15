@@ -1,14 +1,14 @@
 (
-<Student>
+<Hogwarts student>
 (
-<Ginger>
+<ginger>
 (
 <Ron Weasley>
 nil
 nil
 )
 (
-<Has a scar>
+<has a scar>
 (
 <Harry Potter>
 nil
@@ -22,16 +22,16 @@ nil
 )
 )
 (
-<Professor>
+<professor>
 (
-<Has a beard>
+<has a beard>
 (
 <Albus Dumbledore>
 nil
 nil
 )
 (
-<Can turn into a cat>
+<can turn into a cat>
 (
 <Minerva McGonagall>
 nil

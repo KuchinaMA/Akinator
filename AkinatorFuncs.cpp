@@ -8,9 +8,9 @@
 #include "AkinatorFuncs.h"
 
 
-int choose_mode() {
+int choose_mode(char* filename) {
 
-    FILE* database = fopen("HPData.txt", "r");
+    FILE* database = fopen(filename, "r");
     Tree* tree = read_data(database);
     fclose(database);
 
@@ -54,7 +54,7 @@ int choose_mode() {
     scanf("%d", &changes);
 
     if (changes == 1) {
-        FILE* output = fopen("HPData.txt", "w");
+        FILE* output = fopen(filename, "w");
         print_node_pre(tree->root, output);
         fclose(output);
     }

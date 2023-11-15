@@ -26,7 +26,7 @@ int main () {
     tree_dtor(tree2); */
 
     //fclose(input1);
-    choose_mode();
+    choose_mode("HPData.txt");
 
     fclose(output);
 
