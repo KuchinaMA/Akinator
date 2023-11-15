@@ -38,13 +38,17 @@ int choose_mode(char* filename) {
         }
 
         case DESCR_MODE: {
-            printf("Enter the object name in <>: ");
-            char object[MAX_LINE_LEN] = "";
-            get_line(stdin, object);
-            make_description(object, tree);
+            make_description(tree);
             break;
         }
 
+        case DIFF_MODE: {
+            compare_objects(tree);
+            break;
+        }
+
+        default:
+            printf("Incorrect mode:(\n\n");
 
     }
 
@@ -118,7 +122,11 @@ int add_new_character(Node* node) {
 }
 
 
-int make_description(char* object, const Tree* tree) {
+int make_description(const Tree* tree) {
+
+    printf("Enter the object name in <>: ");
+    char object[MAX_LINE_LEN] = "";
+    get_line(stdin, object);
 
     STACK_CONSTRUCT(stk, StackDefaultCapacity);
     //printf("%s\n", object);                       //отладка
@@ -178,31 +186,144 @@ void print_description(char* object, Node* node, Stack* stack) {
 
     printf("%s is ", object);
 
-    for (int i = 0; i < stack->size; i++) {
+    for (int position = 0; position < stack->size; position++) {
 
-        if (stack->data[i] == 0)
+        if (stack->data[position] == 0)
             printf("not ");
 
-        if (i != stack->size - 1)
+        if (position != stack->size - 1)
             printf("%s, ", node->data);
         else
             printf("%s. ", node->data);
 
 
-        if (stack->data[i] == 0) {
+        if (stack->data[position] == 0) {
             node = node->right;
-            //printf("CURRENT %s\n", node->data);
         }
         else {
             node = node->left;
-            //printf("CURRENT %s\n", node->data);
         }
     }
 
-
-
     printf("\n\n");
 }
+
+
+int compare_objects(const Tree* tree) {
+
+    printf("Enter the first object name in <>: ");
+    char object1[MAX_LINE_LEN] = "";
+    get_line(stdin, object1);
+
+    STACK_CONSTRUCT(stk1, StackDefaultCapacity);
+
+    int res1 = find_way(object1, tree->root, &stk1);
+    if (res1 == 0) {
+        printf("Sorry! There's character %s in my database\n\n", object1);
+        return 1;       //по-хорошему какая-то ошибка или дать ввести ещё раз
+    }
+
+
+    printf("Enter the second object name in <>: ");
+    char object2[MAX_LINE_LEN] = "";
+    get_line(stdin, object2);
+
+    STACK_CONSTRUCT(stk2, StackDefaultCapacity);
+
+    int res2 = find_way(object2, tree->root, &stk2);
+    if (res2 == 0) {
+        printf("Sorry! There's character %s in my database\n\n", object2);
+        return 1;      //то же самое что и несколькими строчками выше
+    }
+
+    print_difference(object1, object2, tree->root, &stk1, &stk2);
+
+    printf("\n\n");
+
+    stack_dtor(&stk1);
+    stack_dtor(&stk2);
+    return 0;
+}
+
+
+
+int print_difference(char* object1, char* object2, Node* node, Stack* stk1, Stack* stk2) {
+
+    printf("%s and %s are both ", object1, object2);
+
+    int position = 0;
+
+    while (stk1->data[position] == stk2->data[position]) //считаем количество совпадений
+        position++;
+
+    int last_similar = position;
+    position = 0;
+
+    while (position < last_similar) {
+
+        if (stk1->data[position] == 0)
+            printf("not ");
+
+        printf("%s, ", node->data);
+
+        if (stk1->data[position] == 0)
+            node = node->right;
+
+        else
+            node = node->left;
+        position++;
+    }
+
+    Node* temp_node = node;               //последний совпадающий признак
+
+    printf("but %s is ", object1);
+    while(position < stk1->size) {
+
+        if (stk1->data[position] == 0)
+            printf("not ");
+
+        printf("%s, ", node->data);
+
+        if (stk1->data[position] == 0)
+            node = node->right;
+
+        else
+            node = node->left;
+
+        position++;
+    }
+
+    position = last_similar;
+    node = temp_node;
+
+    printf("and %s is ", object2);
+    while(position < stk2->size) {
+
+        if (stk2->data[position] == 0)
+            printf("not ");
+
+        if (position == stk2->size - 1)
+            printf("%s. ", node->data);
+
+        else
+            printf("%s, ", node->data);
+
+        if (stk2->data[position] == 0)
+            node = node->right;
+
+        else
+            node = node->left;
+
+        position++;
+    }
+
+    return 0;
+}
+
+
+
+
+
 
 
 
