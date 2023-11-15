@@ -6,12 +6,12 @@ CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equ
 -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing\
 -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -Werror=vla -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-all: TreeRes.exe
+all: AkinatorRes.exe
 
-TreeRes.exe: Main.o Tree.o TreeDump.o AkinatorFuncs.o
+AkinatorRes.exe: Main.o Tree.o TreeDump.o Stack.o Logfile.o Protection.o AkinatorFuncs.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-Main.o: Main.cpp Tree.h TreeDump.h  
+Main.o: Main.cpp Tree.h TreeDump.h AkinatorFuncs.h  
 	$(CC) $(CFLAGS) $< -c -o $@
 
 Tree.o: Tree.cpp Tree.h
@@ -20,7 +20,16 @@ Tree.o: Tree.cpp Tree.h
 TreeDump.o: TreeDump.cpp Tree.h TreeDump.h
 	$(CC) $(CFLAGS) $< -c -o $@
 
-AkinatorFuncs.o: AkinatorFuncs.cpp AkinatorFuncs.h Tree.h TreeDump.h
+Stack.o: Stack.cpp Stack.h Types.h Protection.h Logfile.h
+	$(CC) $(CFLAGS) $< -c -o $@
+
+Logfile.o: Logfile.cpp Logfile.h
+	$(CC) $(CFLAGS) $< -c -o $@
+
+Protection.o: Protection.cpp Protection.h Stack.h Types.h Logfile.h 
+	$(CC) $(CFLAGS) $< -c -o $@
+
+AkinatorFuncs.o: AkinatorFuncs.cpp Stack.h Types.h AkinatorFuncs.h Tree.h TreeDump.h 
 	$(CC) $(CFLAGS) $< -c -o $@ 
 
 .PHONY: all clean

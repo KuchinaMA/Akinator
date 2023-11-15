@@ -102,7 +102,7 @@ Node* read_node(FILE* file) {
 
     Node* node = (Node*)calloc(1, sizeof(Node));
 
-    get_line(file, node);
+    get_line(file, node->data);
 
     fscanf(file, "%s", current);
 
@@ -182,9 +182,8 @@ int count_nodes(FILE* file) {
 }
 
 
-int get_line(FILE* file, Node* node) {
+int get_line(FILE* file, char* line) {
 
-    char data[MAX_LINE_LEN] = "";
     char symb = '0';
     int i = 0;
 
@@ -193,12 +192,11 @@ int get_line(FILE* file, Node* node) {
             i--;
             continue;
         }
-        data[i] = symb;
+        line[i] = symb;
         i++;
     }
-    data[i] = '\0';
-    strcpy(node->data, data);
-    //printf("data %s \n", node->data);
+
+    line[i] = '\0';
     return 0;
 }
 

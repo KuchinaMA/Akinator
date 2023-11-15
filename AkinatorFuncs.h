@@ -1,6 +1,9 @@
 #ifndef AKINATORFUNCS_H_INCLUDED
 #define AKINATORFUNCS_H_INCLUDED
 
+#include "Types.h"
+#include "Stack.h"
+
 enum Modes {
 
     DUMP_MODE  = 1,
@@ -10,9 +13,13 @@ enum Modes {
 };
 
 int choose_mode();
+
 int guess_character(Node* node);
 int add_new_character(Node* node);
-int print_description();
+
+int make_description(char* object, const Tree* tree);
+int find_way(char* object, Node* node, Stack* stack);
+void print_description(char* object, Node* node, Stack* stack);
 
 
 #endif // AKINATORFUNCS_H_INCLUDED
