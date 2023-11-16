@@ -52,12 +52,13 @@ int choose_mode(char* filename) {
 
     }
 
-    int changes = 0;
     printf("Do you want to save changes?\n");
-    printf("Enter 1 for yes, 0 for no\n");
-    scanf("%d", &changes);
+    printf("Enter yes/no: ");
 
-    if (changes == 1) {
+    char changes[MAX_LINE_LEN] = "";
+    scanf("%s", changes);
+
+    if (strcmp(changes, "yes") == 0) {
         FILE* output = fopen(filename, "w");
         print_node_pre(tree->root, output);
         fclose(output);
@@ -69,9 +70,20 @@ int choose_mode(char* filename) {
 int guess_character(Node* node) {
 
     printf("%s?\n", node->data);
-    printf("Enter 1 for yes, 0 for no\n");
+    /*printf("Enter 1 for yes, 0 for no\n");
     int res = 0;
-    scanf("%d", &res);
+    scanf("%d", &res);*/
+
+    printf("Enter yes/no: ");
+
+    char answer[MAX_LINE_LEN] = "";
+    scanf("%s", answer);
+    int res = 0;
+
+    if (strcmp(answer, "yes") == 0)
+        res = 1;
+    else if (strcmp(answer, "yes") == 0)
+        res = 0;
 
     if (node->left == 0 || node->right == 0) {
 
@@ -113,7 +125,7 @@ int add_new_character(Node* node) {
     printf("It/he/she ");
     get_line(stdin, node->data);
 
-    printf("Okay! I got it and I will win next time\n\n");
+    printf("Okay! I got it and I will win next time hehehe\n\n");
 
     node->left = new_char;
     node->right = old_char;
