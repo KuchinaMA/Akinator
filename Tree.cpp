@@ -32,6 +32,7 @@ int node_dtor(Node* node) {
     return 0;
 }
 
+
 void print_node_pre(Node* node, FILE* output) {
 
     if (node == 0) {
@@ -45,6 +46,7 @@ void print_node_pre(Node* node, FILE* output) {
     fprintf(output, ")\n");
 }
 
+
 void print_node_post(Node* node, FILE* output) {
 
     if (node == 0) {
@@ -57,6 +59,7 @@ void print_node_post(Node* node, FILE* output) {
     fprintf(output, "<%s>\n", node->data);
     fprintf(output, ")\n");
 }
+
 
 void print_node_in(Node* node, FILE* output) {
 
@@ -84,6 +87,7 @@ Tree* tree_ctor(Node* root, size_t size) {
     return tree;
 }
 
+
 int tree_dtor(Tree* tree) {
 
     node_dtor(tree->root);
@@ -106,17 +110,11 @@ Node* read_node(FILE* file) {
 
     fscanf(file, "%s", current);
 
-    if (strcmp("(", current) == 0) {
-
-        //printf("open %s\n", current);    //отладка
+    if (strcmp("(", current) == 0)
         node->left = read_node(file);
-    }
 
-    else if (strcmp("nil", current) == 0) {
-
-        //printf("nils %s\n", current);    //отладка
+    else if (strcmp("nil", current) == 0)
         node->left = 0;
-    }
 
     else {
         printf("Syntax error!\n");
@@ -125,17 +123,11 @@ Node* read_node(FILE* file) {
 
 
     fscanf(file, "%s", current);
-    if (strcmp("(", current) == 0) {
-
-        //printf("open %s\n", current);    //отладка
+    if (strcmp("(", current) == 0)
         node->right = read_node(file);
-    }
 
-    else if (strcmp("nil", current) == 0) {
-
-        //printf("nil %s\n", current);     //отладка
+    else if (strcmp("nil", current) == 0)
         node->right = 0;
-    }
 
     else {
         printf("Syntax error!\n");
@@ -144,7 +136,6 @@ Node* read_node(FILE* file) {
 
 
     fscanf(file, "%s", current); //закрывающая скобка
-    //printf("data: %s\n", node->data);
 
     return node;
 }
@@ -153,12 +144,10 @@ Node* read_node(FILE* file) {
 Tree* read_data(FILE* file) {
 
     int size = count_nodes(file);
-    //printf("FINAL %d\n", size);
 
     char current[MAX_LINE_LEN] = "";
 
-    fscanf(file, "%s", current); //открывающая скобка
-    //printf("open %s\n", current);
+    fscanf(file, "%s", current);          //открывающая скобка
 
     Node* new_node = read_node(file);
     Tree* new_tree = tree_ctor(new_node, size);

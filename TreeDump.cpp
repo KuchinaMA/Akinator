@@ -37,6 +37,7 @@ void node_graph_dump(Node* node, FILE* dotfile) {
 
 }
 
+
 void edge_graph_dump(Node* node, FILE* dotfile) {
 
     if (node->left != 0) {

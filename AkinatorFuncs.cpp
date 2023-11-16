@@ -8,7 +8,7 @@
 #include "AkinatorFuncs.h"
 
 
-int choose_mode(char* filename) {
+int choose_mode(const char* filename) {
 
     FILE* database = fopen(filename, "r");
     Tree* tree = read_data(database);
@@ -66,6 +66,7 @@ int choose_mode(char* filename) {
     return 0;
 }
 
+
 int guess_character(Node* node) {
 
     printf("%s?\n"
@@ -87,7 +88,6 @@ int guess_character(Node* node) {
 
         else
             add_new_character(node);
-
     }
 
     else {
@@ -149,6 +149,7 @@ int make_description(const Tree* tree) {
     return 0;
 }
 
+
 int find_way(char* object, Node* node, Stack* stack) {
 
     int is_found = 0;
@@ -183,7 +184,6 @@ int find_way(char* object, Node* node, Stack* stack) {
 
     return is_found;
 }
-
 
 
 void print_description(char* object, Node* node, Stack* stack) {
@@ -233,14 +233,13 @@ int compare_objects(const Tree* tree) {
 }
 
 
-
 int print_difference(char* object1, char* object2, Node* node, Stack* stk1, Stack* stk2) {
 
     printf("%s and %s are both ", object1, object2);
 
     int position = 0;
 
-    while (stk1->data[position] == stk2->data[position]) //считаем количество совпадений
+    while (stk1->data[position] == stk2->data[position])                   //считаем количество совпадений
         position++;
 
     int last_similar = position;
@@ -255,7 +254,6 @@ int print_difference(char* object1, char* object2, Node* node, Stack* stk1, Stac
 
     return 0;
 }
-
 
 
 Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_position) {

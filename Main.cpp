@@ -5,9 +5,15 @@
 #include "TreeDump.h"
 #include "AkinatorFuncs.h"
 
-int main () {
+const char *DEFAULT_FILE = "TestData1.txt";
 
-    choose_mode("HPData.txt");
+int main (int argc, const char *argv[]) {
+
+    if (argc == 1)
+        choose_mode(DEFAULT_FILE);
+
+    else
+        choose_mode(argv[1]);
 
     return 0;
 }
