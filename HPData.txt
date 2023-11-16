@@ -45,9 +45,17 @@ nil
 )
 )
 (
+<lives in a hut>
+(
+<Hagrid>
+nil
+nil
+)
+(
 <God knows who>
 nil
 nil
+)
 )
 )
 )

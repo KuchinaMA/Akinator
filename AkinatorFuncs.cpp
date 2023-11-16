@@ -14,12 +14,12 @@ int choose_mode(char* filename) {
     Tree* tree = read_data(database);
     fclose(database);
 
-    printf("Hello! It's an Akinator game. Look what I can do:\n");
-    printf("1) Show the tree with objects and their characteristics; \n");
-    printf("2) Guess an object; \n");
-    printf("3) Make a description of an object; \n");
-    printf("4) Show the difference between tho objects. \n\n");
-    printf("Enter the number of the mode (without bracket) to start: ");
+    printf("Hello! It's an Akinator game. Look what I can do:\n"
+    "1) Show the tree with objects and their characteristics; \n"
+    "2) Guess an object; \n"
+    "3) Make a description of an object; \n"
+    "4) Show the difference between tho objects. \n\n"
+    "Enter the number of the mode (without bracket) to start: ");
 
     int mode = 0;
     scanf("%d", &mode);
@@ -51,8 +51,8 @@ int choose_mode(char* filename) {
             printf("Incorrect mode:(\n\n");
     }
 
-    printf("Do you want to save changes?\n");
-    printf("Enter yes/no: ");
+    printf("Do you want to save changes?\n"
+    "Enter yes/no: ");
 
     char changes[MAX_LINE_LEN] = "";
     scanf("%s", changes);
@@ -68,8 +68,8 @@ int choose_mode(char* filename) {
 
 int guess_character(Node* node) {
 
-    printf("%s?\n", node->data);
-    printf("Enter yes/no: ");
+    printf("%s?\n"
+    "Enter yes/no: ", node->data);
 
     char answer[MAX_LINE_LEN] = "";
     scanf("%s", answer);
@@ -108,16 +108,16 @@ int guess_character(Node* node) {
 int add_new_character(Node* node) {
 
     char new_character[MAX_LINE_LEN] = "";
-    printf("Who is it?\n");
-    printf("Please enter word in <>\n");
+    printf("Who is it?\n"
+    "Please enter word in <>\n");
     get_line(stdin, new_character);
     Node* new_char = node_ctor(new_character, 0, 0);
 
     Node* old_char = node_ctor(node->data, 0, 0);
 
-    printf("How does %s differ from %s?\n", new_char->data, node->data);
-    printf("Please enter word in <> and don't use \"not\" or \"don't\"/\"doesn't\"\n");
-    printf("It/he/she ");
+    printf("How does %s differ from %s?\n"
+    "Please enter word in <> and don't use \"not\" or \"don't\"/\"doesn't\"\n"
+    "It/he/she ", new_char->data, node->data);
     get_line(stdin, node->data);
 
     printf("Okay! I got it and I will win next time hehehe\n\n");
@@ -136,11 +136,8 @@ int make_description(const Tree* tree) {
     get_line(stdin, object);
 
     STACK_CONSTRUCT(stk, StackDefaultCapacity);
-    //printf("%s\n", object);                       //отладка
 
     int res = find_way(object, tree->root, &stk);
-    //printf("%d\n", res);                          //отладка
-    //PRINT_STACK(&stk);                            //отладка
 
     if (res == 0)
         printf("Sorry! There's no such a character in my database\n\n");
@@ -166,7 +163,7 @@ int find_way(char* object, Node* node, Stack* stack) {
 
         stack_push(stack, 1);
         is_found = find_way(object, node->left, stack);
-        //printf("FOUND %d\n", is_found);
+
         if (is_found == 0) {
             elem_t old = 0;
             stack_pop(stack, &old);
@@ -177,7 +174,7 @@ int find_way(char* object, Node* node, Stack* stack) {
 
         stack_push(stack, 0);
         is_found = find_way(object, node->right, stack);
-        //printf("FOUND %d\n", is_found);
+
         if (is_found == 0) {
             elem_t old = 0;
             stack_pop(stack, &old);
