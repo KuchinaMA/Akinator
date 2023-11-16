@@ -49,7 +49,6 @@ int choose_mode(char* filename) {
 
         default:
             printf("Incorrect mode:(\n\n");
-
     }
 
     printf("Do you want to save changes?\n");

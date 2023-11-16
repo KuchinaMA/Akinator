@@ -11,7 +11,8 @@ int graph_dump(const Tree* tree) {
 
     fprintf(dotfile, "digraph {\n");
     fprintf(dotfile, "  rankdir = HR;\n");
-    fprintf(dotfile, "  node [shape = Mrecord, color = \"#000066\", style = filled, fillcolor = \"#D5EAFF\"];\n");
+    fprintf(dotfile, "  graph [bgcolor=\"#CD853F\"]\n");
+    fprintf(dotfile, "  node [shape = Mrecord, color = \"#8B4513\", style = filled, fillcolor = \"#FFDEAD\"];\n");
 
     node_graph_dump(tree->root, dotfile);
     edge_graph_dump(tree->root, dotfile);
