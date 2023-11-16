@@ -25,4 +25,7 @@ int compare_objects(const Tree* tree);
 int print_difference(char* object1, char* object2, Node* node, Stack* stk1, Stack* stk2);
 
 
+Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_position);
+
+
 #endif // AKINATORFUNCS_H_INCLUDED

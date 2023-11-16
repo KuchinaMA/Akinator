@@ -186,24 +186,7 @@ void print_description(char* object, Node* node, Stack* stack) {
 
     printf("%s is ", object);
 
-    for (int position = 0; position < stack->size; position++) {
-
-        if (stack->data[position] == 0)
-            printf("not ");
-
-        if (position != stack->size - 1)
-            printf("%s, ", node->data);
-        else
-            printf("%s. ", node->data);
-
-
-        if (stack->data[position] == 0) {
-            node = node->right;
-        }
-        else {
-            node = node->left;
-        }
-    }
+    printh_characteristic(stack, node, 0, stack->size);
 
     printf("\n\n");
 }
@@ -257,58 +240,36 @@ int print_difference(char* object1, char* object2, Node* node, Stack* stk1, Stac
         position++;
 
     int last_similar = position;
-    position = 0;
 
-    while (position < last_similar) {
+    Node* last_node = printh_characteristic(stk1, node, 0, last_similar);  //последний совпадающий признак
 
-        if (stk1->data[position] == 0)
+    printf("But %s is ", object1);
+    printh_characteristic(stk1, last_node, last_similar, stk1->size);
+
+    printf("And %s is ", object2);
+    printh_characteristic(stk2, last_node, last_similar, stk2->size);
+
+    return 0;
+}
+
+
+
+Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_position) {
+
+    int position = beg_position;
+
+    while(position < end_position) {
+
+        if (stk->data[position] == 0)
             printf("not ");
 
-        printf("%s, ", node->data);
-
-        if (stk1->data[position] == 0)
-            node = node->right;
-
-        else
-            node = node->left;
-        position++;
-    }
-
-    Node* temp_node = node;               //последний совпадающий признак
-
-    printf("but %s is ", object1);
-    while(position < stk1->size) {
-
-        if (stk1->data[position] == 0)
-            printf("not ");
-
-        printf("%s, ", node->data);
-
-        if (stk1->data[position] == 0)
-            node = node->right;
-
-        else
-            node = node->left;
-
-        position++;
-    }
-
-    position = last_similar;
-    node = temp_node;
-
-    printf("and %s is ", object2);
-    while(position < stk2->size) {
-
-        if (stk2->data[position] == 0)
-            printf("not ");
-
-        if (position == stk2->size - 1)
+        if (position == end_position - 1)
             printf("%s. ", node->data);
 
         else
             printf("%s, ", node->data);
 
-        if (stk2->data[position] == 0)
+        if (stk->data[position] == 0)
             node = node->right;
 
         else
@@ -316,9 +277,10 @@ int print_difference(char* object1, char* object2, Node* node, Stack* stk1, Stac
 
         position++;
     }
-
-    return 0;
+    return node;
 }
+
+
 
 
 
