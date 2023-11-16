@@ -70,10 +70,6 @@ int choose_mode(char* filename) {
 int guess_character(Node* node) {
 
     printf("%s?\n", node->data);
-    /*printf("Enter 1 for yes, 0 for no\n");
-    int res = 0;
-    scanf("%d", &res);*/
-
     printf("Enter yes/no: ");
 
     char answer[MAX_LINE_LEN] = "";
