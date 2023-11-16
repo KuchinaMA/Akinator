@@ -3,7 +3,7 @@
 (
 <ginger>
 (
-<Ron Weasley>
+<Ginny Weasley>
 nil
 nil
 )
@@ -22,9 +22,17 @@ nil
 nil
 )
 (
+<dushnila>
+(
 <Hermione Granger>
 nil
 nil
+)
+(
+<Neville Longbottom>
+nil
+nil
+)
 )
 )
 )
@@ -41,9 +49,17 @@ nil
 (
 <can turn into a cat>
 (
+<knows math>
+(
+<Levkov (secret branch)>
+nil
+nil
+)
+(
 <Minerva McGonagall>
 nil
 nil
+)
 )
 (
 <Severus Snape>
@@ -60,9 +76,17 @@ nil
 nil
 )
 (
+<flies>
+(
+<owl Hedwig>
+nil
+nil
+)
+(
 <God knows who>
 nil
 nil
+)
 )
 )
 )

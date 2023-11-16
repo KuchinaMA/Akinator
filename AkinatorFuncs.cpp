@@ -78,7 +78,7 @@ int guess_character(Node* node) {
 
     if (strcmp(answer, "yes") == 0)
         res = 1;
-    else if (strcmp(answer, "yes") == 0)
+    else if (strcmp(answer, "no") == 0)
         res = 0;
 
     if (node->left == 0 || node->right == 0) {
