@@ -1,3 +1,6 @@
+#define TX_USE_SPEAK
+#include"TXLib.h"
+
 #include <stdio.h>
 #include <strings.h>
 
@@ -51,63 +54,45 @@ int choose_mode(const char* filename) {
             printf("Incorrect mode:(\n\n");
     }
 
-    printf("Do you want to save changes?\n"
-    "Enter yes/no: ");
-
-    char changes[MAX_LINE_LEN] = "";
-    scanf("%s", changes);
-
-    if (strcmp(changes, "yes") == 0) {
-        FILE* output = fopen(filename, "w");
-        print_node_pre(tree->root, output);
-        fclose(output);
-    }
+    save_changes(tree, filename);
 
     return 0;
 }
 
 
-int guess_character(Node* node) {
+void guess_character(Node* node) {
 
-    printf("%s?\n"
-    "Enter yes/no: ", node->data);
-
-    char answer[MAX_LINE_LEN] = "";
-    scanf("%s", answer);
     int res = 0;
 
-    if (strcmp(answer, "yes") == 0)
-        res = 1;
-    else if (strcmp(answer, "no") == 0)
-        res = 0;
+    while(true) {
 
-    if (node->left == 0 || node->right == 0) {
+        res = print_question(node);
+
+        if (node->left == 0 || node->right == 0)
+            break;
 
         if (res == 1)
-            printf("Oh, just as I thought!\n\n");
+            node = node->left;
 
-        else
-            add_new_character(node);
+        else if (res == 0)
+            node = node->right;
     }
 
-    else {
-
-        if (res == 1) {
-            guess_character(node->left);
-        }
-
-        else if (res == 0) {
-            guess_character(node->right);
-        }
+    if (res == 1) {
+        txSpeak("О, я так и думал!");
+        printf("Oh, just as I thought!\n\n");
     }
 
-    return 0;
+    else
+        add_new_character(node);
+
 }
 
 
 int add_new_character(Node* node) {
 
     char new_character[MAX_LINE_LEN] = "";
+    txSpeak("Не знаю такого. А кто это?");
     printf("Who is it?\n"
     "Please enter word in <>\n");
     get_line(stdin, new_character);
@@ -115,11 +100,13 @@ int add_new_character(Node* node) {
 
     Node* old_char = node_ctor(node->data, 0, 0);
 
+    //txSpeak("How does %s differ from %s?");
     printf("How does %s differ from %s?\n"
     "Please enter word in <> and don't use \"not\" or \"don't\"/\"doesn't\"\n"
     "It/he/she ", new_char->data, node->data);
     get_line(stdin, node->data);
 
+    txSpeak("Хорошо! Я запомнил и в следующий раз я выиграю хехехе");
     printf("Okay! I got it and I will win next time hehehe\n\n");
 
     node->left = new_char;
@@ -139,8 +126,10 @@ int make_description(const Tree* tree) {
 
     int res = find_way(object, tree->root, &stk);
 
-    if (res == 0)
+    if (res == 0) {
+        txSpeak("К сожалению, такого персонажа нет в базе данных");
         printf("Sorry! There's no such a character in my database\n\n");
+    }
 
     else
         print_description(object, tree->root, &stk);
@@ -150,43 +139,40 @@ int make_description(const Tree* tree) {
 }
 
 
-int find_way(char* object, Node* node, Stack* stack) {
+int find_way(const char* object, Node* node, Stack* stack) {
+                                                                  //убрать лишние проверки
+    if (node == 0)
+        return 0;
 
-    int is_found = 0;
-
-        if (node == 0)
-            return 0;
-
-        if (strcmp(object, node->data) == 0)
-            is_found = 1;
-
-    if (is_found == 0) {
-
-        stack_push(stack, 1);
-        is_found = find_way(object, node->left, stack);
-
-        if (is_found == 0) {
-            elem_t old = 0;
-            stack_pop(stack, &old);
-        }
+    if (strcmp(object, node->data) == 0) {
+        return 1;
     }
 
+    int is_found = 0;
+    stack_push(stack, 1);
+    is_found = find_way(object, node->left, stack);
+
     if (is_found == 0) {
+        elem_t old = 0;
+        stack_pop(stack, &old);
+    }
+    else
+        return 1;
 
-        stack_push(stack, 0);
-        is_found = find_way(object, node->right, stack);
 
-        if (is_found == 0) {
-            elem_t old = 0;
-            stack_pop(stack, &old);
-        }
+    stack_push(stack, 0);
+    is_found = find_way(object, node->right, stack);
+
+    if (is_found == 0) {
+        elem_t old = 0;
+        stack_pop(stack, &old);
     }
 
     return is_found;
 }
 
 
-void print_description(char* object, Node* node, Stack* stack) {
+void print_description(const char* object, Node* node, Stack* stack) {
 
     printf("%s is ", object);
 
@@ -198,6 +184,7 @@ void print_description(char* object, Node* node, Stack* stack) {
 
 int compare_objects(const Tree* tree) {
 
+    txSpeak("Enter the first object name");
     printf("Enter the first object name in <>: ");
     char object1[MAX_LINE_LEN] = "";
     get_line(stdin, object1);
@@ -206,7 +193,8 @@ int compare_objects(const Tree* tree) {
 
     int res1 = find_way(object1, tree->root, &stk1);
     if (res1 == 0) {
-        printf("Sorry! There's character %s in my database\n\n", object1);
+        txSpeak("К сожалению, такого персонажа нет в базе данных");
+        printf("Sorry! There's no character %s in my database\n\n", object1);
         return 1;       //по-хорошему какая-то ошибка или дать ввести ещё раз
     }
 
@@ -219,7 +207,8 @@ int compare_objects(const Tree* tree) {
 
     int res2 = find_way(object2, tree->root, &stk2);
     if (res2 == 0) {
-        printf("Sorry! There's character %s in my database\n\n", object2);
+        txSpeak("К сожалению, такого персонажа нет в базе данных");
+        printf("Sorry! There's no character %s in my database\n\n", object2);
         return 1;      //то же самое что и несколькими строчками выше
     }
 
@@ -233,12 +222,11 @@ int compare_objects(const Tree* tree) {
 }
 
 
-int print_difference(char* object1, char* object2, Node* node, Stack* stk1, Stack* stk2) {
+int print_difference(const char* object1, const char* object2, Node* node, Stack* stk1, Stack* stk2) {
 
     printf("%s and %s are both ", object1, object2);
 
     int position = 0;
-
     while (stk1->data[position] == stk2->data[position])                   //считаем количество совпадений
         position++;
 
@@ -282,7 +270,56 @@ Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_po
     return node;
 }
 
+int print_question(const Node* node) {
 
+    printf("%s?\n"
+    "Enter yes/no: ", node->data);
+
+    int res = -1;
+    while (res == -1) {
+
+        char answer[MAX_LINE_LEN] = "";
+        scanf("%s", answer);
+        res = get_ans(answer);
+    }
+
+    return res;
+}
+
+int get_ans(const char* answer) {
+
+    if (strcmp(answer, "yes") == 0)
+        return 1;
+    else if (strcmp(answer, "no") == 0)
+        return 0;
+    else {
+        printf("Incorrect input:( \n"
+        "Enter your answer again \n");
+        return -1;
+    }
+}
+
+void save_changes(const Tree* tree, const char* filename) {
+
+    int changes_ans = -1;
+    printf("Do you want to save changes?\n"
+    "Enter yes/no: ");
+    while(changes_ans == -1) {
+
+        char changes[MAX_LINE_LEN] = "";
+        scanf("%s", changes);
+
+        changes_ans = get_ans(changes);
+    }
+
+    if (changes_ans == 1) {
+        FILE* output = fopen(filename, "w");
+        print_node_pre(tree->root, output);
+        fclose(output);
+    }
+}
+
+//показывать как сравнение двух коммитов?
 
 
 
