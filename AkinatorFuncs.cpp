@@ -15,7 +15,7 @@ int run_akinator(const char* filename) {
 
     FILE* database = fopen(filename, "r");
     if(database == NULL)
-        printf("Sorry! There's no file %s. Default file will be used\n\n");
+        printf("Sorry! There's no file %s. Default file will be used\n\n", filename);
 
     Tree* tree = read_data(database);
     fclose(database);
