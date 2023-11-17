@@ -13,7 +13,9 @@ enum Modes {
 };
 
 int choose_mode(const char* filename);
+void mode(const char* filename, Tree* tree);
 void save_changes(const Tree* tree, const char* filename);
+int if_continue();
 
 void guess_character(Node* node);
 int add_new_character(Node* node);

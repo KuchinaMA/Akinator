@@ -17,18 +17,30 @@ int choose_mode(const char* filename) {
     Tree* tree = read_data(database);
     fclose(database);
 
-    printf("Hello! It's an Akinator game. Look what I can do:\n"
-    "1) Show the tree with objects and their characteristics; \n"
+    printf("Hello! It's an Akinator game. Look what I can do:\n");
+    txSpeak("Привет! Это акинатор");
+
+    int continue_willing = 1;
+    while (continue_willing == 1) {
+
+        mode(filename, tree);
+        save_changes(tree, filename);
+        continue_willing = if_continue();
+    }
+
+    return 0;
+}
+
+void mode(const char* filename, Tree* tree) {
+
+
+    printf("1) Show the tree with objects and their characteristics; \n"
     "2) Guess an object; \n"
     "3) Make a description of an object; \n"
-    "4) Show the difference between tho objects. \n\n"
-    "Enter the number of the mode (without bracket) to start: ");
-    txSpeak("Привет! Это акинатор. Выберите режим игры");
-
-    //int mode = 0;
-    //scanf("%d", &mode);
+    "4) Show the difference between tho objects. \n\n");
+    printf("Enter the number of the mode (without bracket): ");
+    txSpeak("Выберите режим игры");
     int mode = get_mode();
-
     switch (mode) {
 
         case DUMP_MODE: {
@@ -56,10 +68,22 @@ int choose_mode(const char* filename) {
         default:
             printf("Incorrect mode:(\n\n");
     }
+}
 
-    save_changes(tree, filename);
+int if_continue() {
 
-    return 0;
+    txSpeak("Вы хотите сыграть ещё?");
+    printf("Do you want to play again? Enter yes/no: ");
+
+    int res = -1;
+    while (res == -1) {
+
+        char answer[MAX_LINE_LEN] = "";
+        scanf("%s", answer);
+        res = get_ans(answer);
+    }
+
+    return res;
 }
 
 
@@ -121,6 +145,7 @@ int add_new_character(Node* node) {
 
 int make_description(const Tree* tree) {
 
+    txSpeak("Введите объект");
     printf("Enter the object name in <>: ");
     char object[MAX_LINE_LEN] = "";
     get_line(stdin, object);
