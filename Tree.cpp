@@ -8,8 +8,7 @@
 Node* node_ctor(char* data, Node* left, Node* right) {
 
     Node* node = (Node*)calloc(1, sizeof(Node));
-    if (node == NULL)
-        fprintf(stderr, "It's impossible to create new node");
+    assert(node && "It's impossible to create new node");
 
     strcpy(node->data, data);
     node->left = left;
@@ -82,8 +81,7 @@ Tree* tree_ctor(Node* root, size_t size) {
     assert(root);
 
     Tree* tree = (Tree*)calloc(1, sizeof(Tree));
-    if (tree == NULL)
-        fprintf(stderr, "It's impossible to create new tree");
+    assert(tree && "It's impossible to create new node");
 
     tree->root = root;
     tree->size = size;
@@ -109,8 +107,7 @@ Node* read_node(FILE* file) {
     char current[MAX_LINE_LEN] = "";
 
     Node* node = (Node*)calloc(1, sizeof(Node));
-    if (node == NULL)
-        fprintf(stderr, "It's impossible to create new node");
+    assert(node && "It's impossible to create new node");
 
     get_line(file, node->data);
 
