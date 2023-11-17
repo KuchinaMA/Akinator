@@ -29,6 +29,8 @@ Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_po
 
 int print_question(const Node* node);
 int get_ans(const char* answer);
+int get_mode();
+void clear_line();
 
 
 #endif // AKINATORFUNCS_H_INCLUDED

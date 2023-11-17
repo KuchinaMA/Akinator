@@ -17,16 +17,17 @@ int choose_mode(const char* filename) {
     Tree* tree = read_data(database);
     fclose(database);
 
-    txSpeak("Привет! Это акинатор. Выберите режим игры");
     printf("Hello! It's an Akinator game. Look what I can do:\n"
     "1) Show the tree with objects and their characteristics; \n"
     "2) Guess an object; \n"
     "3) Make a description of an object; \n"
     "4) Show the difference between tho objects. \n\n"
     "Enter the number of the mode (without bracket) to start: ");
+    txSpeak("Привет! Это акинатор. Выберите режим игры");
 
-    int mode = 0;
-    scanf("%d", &mode);
+    //int mode = 0;
+    //scanf("%d", &mode);
+    int mode = get_mode();
 
     switch (mode) {
 
@@ -198,7 +199,7 @@ int compare_objects(const Tree* tree) {
     if (res1 == 0) {
         txSpeak("К сожалению, такого персонажа нет в базе данных");
         printf("Sorry! There's no character %s in my database\n\n", object1);
-        return 1;       //по-хорошему какая-то ошибка или дать ввести ещё раз
+        return 1;
     }
 
 
@@ -213,7 +214,7 @@ int compare_objects(const Tree* tree) {
     if (res2 == 0) {
         txSpeak("К сожалению, такого персонажа нет в базе данных");
         printf("Sorry! There's no character %s in my database\n\n", object2);
-        return 1;      //то же самое что и несколькими строчками выше
+        return 1;
     }
 
     print_difference(object1, object2, tree->root, &stk1, &stk2);
@@ -333,6 +334,29 @@ void save_changes(const Tree* tree, const char* filename) {
         fclose(output);
     }
 }
+
+int get_mode() {
+
+    int mode = 0;
+    scanf("%d", &mode);
+
+    while (mode != 1 && mode != 2 && mode != 3 && mode != 4) {
+        printf("Incorrect mode:(\n"
+               "Please enter mode again: ");
+        int res = scanf("%d", &mode);
+        if (res != 1) {
+            clear_line();
+            mode = 0;
+        }
+    }
+    return mode;
+}
+
+void clear_line() {
+    while (getchar() != '\n') {
+    }
+}
+
 
 //показывать как сравнение двух коммитов?
 

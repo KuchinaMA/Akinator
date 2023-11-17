@@ -3,9 +3,17 @@
 (
 <can purr>
 (
+<small>
+(
+<kitty>
+nil
+nil
+)
+(
 <cat>
 nil
 nil
+)
 )
 (
 <green>
