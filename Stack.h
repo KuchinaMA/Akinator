@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #define STACK_CONSTRUCT(var, elements_quantity) \
-struct Stack var = {};                          \
+Stack var = {};                                 \
 stack_ctor(&var, elements_quantity);            \
 var.name = #var;
 
@@ -101,7 +101,7 @@ int stack_realloc(Stack *stk, int newcapacity);
  * \param [in] function name of function from which stack is printed
  * \param [in] fp a file where errors will be recorded
 */
-void stack_dump(const struct Stack *stk, const char *file, int line, const char *function, FILE* fp);
+void stack_dump(const Stack *stk, const char *file, int line, const char *function, FILE* fp);
 
 
 #endif // STACK_H_INCLUDED

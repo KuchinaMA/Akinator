@@ -8,7 +8,7 @@
 Node* node_ctor(char* data, Node* left, Node* right) {
 
     Node* node = (Node*)calloc(1, sizeof(Node));
-
+           //?
     strcpy(node->data, data);
     node->left = left;
     node->right = right;
@@ -80,7 +80,7 @@ Tree* tree_ctor(Node* root, size_t size) {
     assert(root);
 
     Tree* tree = (Tree*)calloc(1, sizeof(Tree));
-
+                    //?
     tree->root = root;
     tree->size = size;
 
@@ -105,7 +105,7 @@ Node* read_node(FILE* file) {
     char current[MAX_LINE_LEN] = "";
 
     Node* node = (Node*)calloc(1, sizeof(Node));
-
+                   //?
     get_line(file, node->data);
 
     fscanf(file, "%s", current);
@@ -158,6 +158,7 @@ Tree* read_data(FILE* file) {
 int count_nodes(FILE* file) {
 
     int nodes_num = 0;
+    int pos = ftell(file);
 
     char brackets[MAX_LINE_LEN] = "";
     while (fscanf(file, "%s", brackets) > 0) {
@@ -165,7 +166,7 @@ int count_nodes(FILE* file) {
             nodes_num++;
     }
 
-    fseek(file, 0, SEEK_SET);
+    fseek(file, pos, SEEK_SET);
 
     return nodes_num;
 }

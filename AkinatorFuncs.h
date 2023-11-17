@@ -5,15 +5,16 @@
 #include "Stack.h"
 
 enum Modes {
-
+    START_MODES = 0,
     DUMP_MODE  = 1,
     GUESS_MODE = 2,
     DESCR_MODE = 3,
     DIFF_MODE  = 4,
+    END_MODES,
 };
 
 int run_akinator(const char* filename);
-void choose_mode(const char* filename, Tree* tree);
+void choose_mode(Tree* tree);
 void save_changes(const Tree* tree, const char* filename);
 int if_continue();
 

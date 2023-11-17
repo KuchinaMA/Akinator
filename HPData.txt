@@ -83,9 +83,17 @@ nil
 nil
 )
 (
+<Cast spells>
+(
+<Wand>
+nil
+nil
+)
+(
 <God knows who>
 nil
 nil
+)
 )
 )
 )

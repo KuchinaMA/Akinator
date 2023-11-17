@@ -14,6 +14,9 @@
 int run_akinator(const char* filename) {
 
     FILE* database = fopen(filename, "r");
+    if(database == NULL)
+        printf("Sorry! There's no file %s. Default file will be used\n\n");
+
     Tree* tree = read_data(database);
     fclose(database);
 
@@ -23,7 +26,7 @@ int run_akinator(const char* filename) {
     int continue_willing = 1;
     while (continue_willing == 1) {
 
-        choose_mode(filename, tree);
+        choose_mode(tree);
         save_changes(tree, filename);
         continue_willing = if_continue();
     }
@@ -31,15 +34,17 @@ int run_akinator(const char* filename) {
     return 0;
 }
 
-void choose_mode(const char* filename, Tree* tree) {
+void choose_mode(Tree* tree) {
 
+    assert(tree);
 
     printf("1) Show the tree with objects and their characteristics; \n"
-    "2) Guess an object; \n"
-    "3) Make a description of an object; \n"
-    "4) Show the difference between tho objects. \n\n");
+           "2) Guess an object; \n"
+           "3) Make a description of an object; \n"
+           "4) Show the difference between tho objects. \n\n");
     printf("Enter the number of the mode (without bracket): ");
     txSpeak("Выберите режим игры");
+
     int mode = get_mode();
     switch (mode) {
 
@@ -73,7 +78,8 @@ void choose_mode(const char* filename, Tree* tree) {
 int if_continue() {
 
     txSpeak("Вы хотите сыграть ещё?");
-    printf("Do you want to play again? Enter yes/no: ");
+    printf("Do you want to play again?\n"
+           "Enter yes/no: ");
 
     int res = -1;
     while (res == -1) {
@@ -89,8 +95,9 @@ int if_continue() {
 
 void guess_character(Node* node) {
 
-    int res = 0;
+    assert(node);
 
+    int res = 0;
     while(true) {
 
         res = print_question(node);
@@ -118,10 +125,12 @@ void guess_character(Node* node) {
 
 int add_new_character(Node* node) {
 
+    assert(node);
+
     char new_character[MAX_LINE_LEN] = "";
     txSpeak("Не знаю такого. А кто это?");
     printf("Who is it?\n"
-    "Please enter word in <>\n");
+           "Please enter word in <>\n");
     get_line(stdin, new_character);
     Node* new_char = node_ctor(new_character, 0, 0);
 
@@ -129,8 +138,8 @@ int add_new_character(Node* node) {
 
     txSpeak("А чем %s отличается от %s?", new_char->data, node->data);
     printf("How does %s differ from %s?\n"
-    "Please enter word in <> and don't use \"not\" or \"don't\"/\"doesn't\"\n"
-    "It/he/she ", new_char->data, node->data);
+           "Please enter word in <> and don't use \"not\" or \"don't\"/\"doesn't\"\n"
+           "It/he/she ", new_char->data, node->data);
     get_line(stdin, node->data);
 
     txSpeak("Хорошо! Я запомнил и в следующий раз я выиграю хехехе");
@@ -144,6 +153,8 @@ int add_new_character(Node* node) {
 
 
 int make_description(const Tree* tree) {
+
+    assert(tree);
 
     txSpeak("Введите объект");
     printf("Enter the object name in <>: ");
@@ -168,6 +179,8 @@ int make_description(const Tree* tree) {
 
 
 int find_way(const char* object, Node* node, Stack* stack) {
+
+    assert(stack);
                                                                   //убрать лишние проверки
     if (node == 0)
         return 0;
@@ -202,16 +215,18 @@ int find_way(const char* object, Node* node, Stack* stack) {
 
 void print_description(const char* object, Node* node, Stack* stack) {
 
+    assert(stack);
+
     txSpeak("%s ", object);
     printf("%s is ", object);
-
     printh_characteristic(stack, node, 0, stack->size);
-
     printf("\n\n");
 }
 
 
 int compare_objects(const Tree* tree) {
+
+    assert(tree);
 
     txSpeak("Введите первый объект");
     printf("Enter the first object name in <>: ");
@@ -254,6 +269,10 @@ int compare_objects(const Tree* tree) {
 
 int print_difference(const char* object1, const char* object2, Node* node, Stack* stk1, Stack* stk2) {
 
+    assert(node);
+    assert(stk1);
+    assert(stk2);
+
     txSpeak("%s и %s оба ", object1, object2);
     printf("%s and %s are both ", object1, object2);
 
@@ -273,11 +292,17 @@ int print_difference(const char* object1, const char* object2, Node* node, Stack
     printf("And %s is ", object2);
     printh_characteristic(stk2, last_node, last_similar, stk2->size);
 
+    printf("\n\n");
+
     return 0;
 }
 
 
 Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_position) {
+
+    assert(node);
+    assert(beg_position >= 0);
+    assert(end_position >= 0);
 
     int position = beg_position;
 
@@ -311,6 +336,8 @@ Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_po
 
 int print_question(const Node* node) {
 
+    assert(node);
+
     txSpeak("Загаданный объект %s?", node->data);
     printf("%s?\n"
     "Enter yes/no: ", node->data);
@@ -341,6 +368,8 @@ int get_ans(const char* answer) {
 
 void save_changes(const Tree* tree, const char* filename) {
 
+    assert(tree);
+
     int changes_ans = -1;
     txSpeak("Вы хотите сохранить изменения?");
     printf("Do you want to save changes?\n"
@@ -365,7 +394,7 @@ int get_mode() {
     int mode = 0;
     scanf("%d", &mode);
 
-    while (mode != 1 && mode != 2 && mode != 3 && mode != 4) {
+    while (!(mode > START_MODES && mode < END_MODES)) {
         printf("Incorrect mode:(\n"
                "Please enter mode again: ");
         int res = scanf("%d", &mode);
@@ -378,8 +407,7 @@ int get_mode() {
 }
 
 void clear_line() {
-    while (getchar() != '\n') {
-    }
+    while (getchar() != '\n') {}
 }
 
 
