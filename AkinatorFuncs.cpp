@@ -11,7 +11,7 @@
 #include "AkinatorFuncs.h"
 
 
-int choose_mode(const char* filename) {
+int run_akinator(const char* filename) {
 
     FILE* database = fopen(filename, "r");
     Tree* tree = read_data(database);
@@ -23,7 +23,7 @@ int choose_mode(const char* filename) {
     int continue_willing = 1;
     while (continue_willing == 1) {
 
-        mode(filename, tree);
+        choose_mode(filename, tree);
         save_changes(tree, filename);
         continue_willing = if_continue();
     }
@@ -31,7 +31,7 @@ int choose_mode(const char* filename) {
     return 0;
 }
 
-void mode(const char* filename, Tree* tree) {
+void choose_mode(const char* filename, Tree* tree) {
 
 
     printf("1) Show the tree with objects and their characteristics; \n"

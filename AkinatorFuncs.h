@@ -12,8 +12,8 @@ enum Modes {
     DIFF_MODE  = 4,
 };
 
-int choose_mode(const char* filename);
-void mode(const char* filename, Tree* tree);
+int run_akinator(const char* filename);
+void choose_mode(const char* filename, Tree* tree);
 void save_changes(const Tree* tree, const char* filename);
 int if_continue();
 

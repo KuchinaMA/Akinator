@@ -10,10 +10,10 @@ const char *DEFAULT_FILE = "TestData1.txt";
 int main (int argc, const char *argv[]) {
 
     if (argc == 1)
-        choose_mode(DEFAULT_FILE);
+        run_akinator(DEFAULT_FILE);
 
     else
-        choose_mode(argv[1]);
+        run_akinator(argv[1]);
 
     return 0;
 }
