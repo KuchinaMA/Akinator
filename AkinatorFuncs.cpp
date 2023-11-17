@@ -17,6 +17,7 @@ int choose_mode(const char* filename) {
     Tree* tree = read_data(database);
     fclose(database);
 
+    txSpeak("Привет! Это акинатор. Выберите режим игры");
     printf("Hello! It's an Akinator game. Look what I can do:\n"
     "1) Show the tree with objects and their characteristics; \n"
     "2) Guess an object; \n"
@@ -31,6 +32,7 @@ int choose_mode(const char* filename) {
 
         case DUMP_MODE: {
             graph_dump(tree);
+            txSpeak("Готово! Ваша картинка находится в соответствующей папке");
             printf("Ready! You can see the picture in the corresponding folder\n\n");
             break;
         }
@@ -79,7 +81,7 @@ void guess_character(Node* node) {
     }
 
     if (res == 1) {
-        txSpeak("О, я так и думал!");
+        txSpeak("О, я так и думал хехехе");
         printf("Oh, just as I thought!\n\n");
     }
 
@@ -100,7 +102,7 @@ int add_new_character(Node* node) {
 
     Node* old_char = node_ctor(node->data, 0, 0);
 
-    //txSpeak("How does %s differ from %s?");
+    txSpeak("А чем %s отличается от %s?", new_char->data, node->data);
     printf("How does %s differ from %s?\n"
     "Please enter word in <> and don't use \"not\" or \"don't\"/\"doesn't\"\n"
     "It/he/she ", new_char->data, node->data);
@@ -174,6 +176,7 @@ int find_way(const char* object, Node* node, Stack* stack) {
 
 void print_description(const char* object, Node* node, Stack* stack) {
 
+    txSpeak("%s ", object);
     printf("%s is ", object);
 
     printh_characteristic(stack, node, 0, stack->size);
@@ -184,7 +187,7 @@ void print_description(const char* object, Node* node, Stack* stack) {
 
 int compare_objects(const Tree* tree) {
 
-    txSpeak("Enter the first object name");
+    txSpeak("Введите первый объект");
     printf("Enter the first object name in <>: ");
     char object1[MAX_LINE_LEN] = "";
     get_line(stdin, object1);
@@ -199,6 +202,7 @@ int compare_objects(const Tree* tree) {
     }
 
 
+    txSpeak("Введите второй объект");
     printf("Enter the second object name in <>: ");
     char object2[MAX_LINE_LEN] = "";
     get_line(stdin, object2);
@@ -224,6 +228,7 @@ int compare_objects(const Tree* tree) {
 
 int print_difference(const char* object1, const char* object2, Node* node, Stack* stk1, Stack* stk2) {
 
+    txSpeak("%s и %s оба ", object1, object2);
     printf("%s and %s are both ", object1, object2);
 
     int position = 0;
@@ -234,9 +239,11 @@ int print_difference(const char* object1, const char* object2, Node* node, Stack
 
     Node* last_node = printh_characteristic(stk1, node, 0, last_similar);  //последний совпадающий признак
 
+    txSpeak("Но %s", object1);
     printf("But %s is ", object1);
     printh_characteristic(stk1, last_node, last_similar, stk1->size);
 
+    txSpeak("А %s", object2);
     printf("And %s is ", object2);
     printh_characteristic(stk2, last_node, last_similar, stk2->size);
 
@@ -250,14 +257,20 @@ Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_po
 
     while(position < end_position) {
 
-        if (stk->data[position] == 0)
+        if (stk->data[position] == 0) {
+            txSpeak("не");
             printf("not ");
+        }
 
-        if (position == end_position - 1)
+        if (position == end_position - 1) {
+            txSpeak("%s. ", node->data);
             printf("%s. ", node->data);
+        }
 
-        else
+        else {
+            txSpeak("%s, ", node->data);
             printf("%s, ", node->data);
+        }
 
         if (stk->data[position] == 0)
             node = node->right;
@@ -272,6 +285,7 @@ Node* printh_characteristic(Stack* stk, Node* node, int beg_position, int end_po
 
 int print_question(const Node* node) {
 
+    txSpeak("Загаданный объект %s?", node->data);
     printf("%s?\n"
     "Enter yes/no: ", node->data);
 
@@ -302,6 +316,7 @@ int get_ans(const char* answer) {
 void save_changes(const Tree* tree, const char* filename) {
 
     int changes_ans = -1;
+    txSpeak("Вы хотите сохранить изменения?");
     printf("Do you want to save changes?\n"
     "Enter yes/no: ");
     while(changes_ans == -1) {
